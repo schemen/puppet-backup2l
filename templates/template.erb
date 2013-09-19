@@ -1,0 +1,44 @@
+A basic template
+================
+
+Variables beginning with @ are defined in the scope of the class executing
+the template.
+<% if (@foo != '') -%>
+    <%= @foo %>
+<% end -%>
+
+This also includes facts:
+<%= @fqdn %> <%= @operatingsystem %>
+
+Commands
+--------
+
+Iterating over arrays:
+<% @rules.each do |line| -%>
+    <%= line %>
+<% end -%>
+
+Iterating over hashes:
+<% @rules.each do |key,value| -%>
+    <%= key %>:<%= value %>
+<% end -%>
+
+Check if a certain key exists. An undef in puppet can be directly mapped to
+nil in erb.
+<% @rules["nonexisting_key"] != nil -%>
+    <%= @rules["nonexisting_key"] %> Key exists
+<% end -%>
+
+Type checking:
+<% if (@foo.class == Hash) -%>
+<% elsif (@foo.class == Array) -%>
+<% else -%>
+<% end -%>
+
+It's also possible to access files outside of the current scope.
+<%= scope.lookupvar('backup2l::service_name') %>
+<%= scope['backup2l::service_name'] %> # Puppet 3.0
+
+If a file gets too big try to split it into subtemplates.
+<%= scope.function_template(["backup2l/subtemplate.erb"]) %>
+It will inherit the same scope as backup2l/template.erb.
