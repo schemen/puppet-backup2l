@@ -23,12 +23,19 @@ Still planing.
     These are the default folders that are being backed up. Default: "/etc /root /home"
 [*srclist*]
     All additionals foldesr/sources that you want to have backed up. Default: ""
-
+[*sshkey*]
+Please define the SSH Key outside of this module like in the Configuration example
 
 == Usage/Configuration
+        $sshkey     = {
+            "id"   => "backup@example.com",
+            "type" => "ssh-rsa",
+            "key"  => "AAAAB3NzaC1yc2EAAAADAQABAAABAQDVD9SEm7+iqL6hIGoIUXvIcy3/GKeNaEk5eLYSlg2Sk49rThlWPbsaj3KGSN9RZlzTbtDYQsnTdgRYqmFn7hJYz6vpsa1WMquB2j7lbau9ffiOkyqeDiAYNnINg8LYjJ2aGrumJoAKW+tNQKwA/eLQliN8C6faA7nzuRUWETDOxKY6lkpYBxU6ZETx3gd75ElxjzIqb/FWX7B6V+ankNKKndkkj5KQjtYeGAVYInXspGQQLPKS6sucnlMYP+FaF1pVOFN/A5LB3oWpqSau8YF98STT1WLhSAsY/m95pdj8BvSWqL1gWDhVenIFNMuLLyZ3lyDu2MTttuXwFpwQzXH3",
+        }
 
     node "foo.example.com"{
-        class {'backup2l': 
+        class {'backup2l':
+            sshkey => $sshkey, 
             parameter1  => "foobar",
         }
     }

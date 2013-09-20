@@ -22,13 +22,18 @@ class backup2l::params {
     $config_file = '/etc/backup2l.conf'
 
 ###############################
+## Backup User params
+    $username           = "backup"
+    $userhome           = "/home/backup"
+
+###############################
 ## Backup2l params
     $volname            = "all"
     $default_srclist    = "/etc /root /home"
     $srclist            = ""
     $default_skipcond    = "-path '*.nobackup*' -o -name '*.o'"
     $skipcond           = ""
-    $backupdir          = "/home/backup/backups"
+    $backupdir          = "${userhome}/backups"
     $max_level          = "3"
     $max_per_level      = "8"
     $max_full           = "2"

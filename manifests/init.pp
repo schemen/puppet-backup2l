@@ -18,12 +18,16 @@ class backup2l(
         $checkfile  = $backup2l::params::checkfile,
         $pre_back   = $backup2l::params::pre_back,
         $post_back  = $backup2l::params::post_back,
+        $username   = $backup2l::params::username,
+        $userhome = $backup2l::params::userhome,
+        $sshkey,
         $status     = running,
         $install    = present,
         ) inherits backup2l::params {
 
     # Setup parameters
-    
+
+    notify {"Userhome = ${userhome}": } 
     # Run classes
     anchor {"backup2l::begin":} ~>
     class {"backup2l::package": } ~>
