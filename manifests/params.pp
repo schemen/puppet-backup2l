@@ -39,6 +39,6 @@ class backup2l::params {
     $max_full           = "2"
     $generations        = "1"
     $checkfile          = "1"
-    $pre_back           = ['echo Prebackup']
-    $post_back          = ['echo Postbackup']
+    $pre_back           = ['echo sh ./prebackup']
+    $post_back          = ['echo sh ./postbackup']
 }
