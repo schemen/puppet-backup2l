@@ -27,7 +27,7 @@ Still planing.
 
 == Usage/Configuration
 
-    note "foo.example.com"{
+    node "foo.example.com"{
         class {'backup2l': 
             parameter1  => "foobar",
         }
