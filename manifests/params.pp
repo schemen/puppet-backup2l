@@ -18,7 +18,22 @@ class backup2l::params {
 
 ###############################
 ## Other
-    $template_file = 'files/backup2l.conf.erb'
+    $template_file = 'backup2l/backup2l.conf.erb'
     $config_file = '/etc/backup2l.conf'
 
+###############################
+## Backup2l params
+    $volname            = "all"
+    $default_srclist    = "/etc /root /home"
+    $srclist            = ""
+    $defaul_skipcond    = "-path '*.nobackup*' -o -name '*.o'"
+    $skipcond           = ""
+    $backupdir          = "/home/backup/backups"
+    $max_level          = "3"
+    $max_per_level      = "8"
+    $max_full           = "2"
+    $generations        = "1"
+    $checkfile          = "1"
+    $pre_back           = ['echo Prebackup']
+    $post_back          = ['echo Postbackup']
 }
