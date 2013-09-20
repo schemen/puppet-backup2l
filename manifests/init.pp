@@ -1,11 +1,9 @@
 # = Class: backup2l
+# Creator: elijah@ponzio.li
 # Description of class
 #
 # == Parameters
-# [*parameter1*]
-#   Description of parameter1. Default: Foo
-# [*parameter2*]
-#   Description of parameter2. Default: Bar
+# For parameter information, please read the readme
 class backup2l(
         $volname    = $backup2l::params::volname,
         $default_srclist= $backup2l::params::default_srclist,

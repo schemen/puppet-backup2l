@@ -1,0 +1,36 @@
+= backup2l Host Module
+
+This is the Host module for the backup2l solution. The final product is amaster/slave concept.
+
+=== Host
+Does local backups into the predefined user. Backup2l parameters are in params.pp
+
+== Backupmaster
+Still planing.
+
+== Requirements
+- a Linux with Debian or Ubuntu
+- "puppet module install puppetlab.stdlib"
+
+== Installation
+
+== Parameters
+[*volname*] 
+    Prefix of output file. Default: "all"
+[*default_srclist*]
+    These are the default folders that are being backed up. Default: "/etc /root /home"
+[*srclist*]
+    All additionals foldesr/sources that you want to have backed up. Default: ""
+
+== Usage/Configuration
+
+note "foo.example.com"{
+    class {'backup2l': 
+        parameter1  => "foobar",
+    }
+}
+== TODO
+
+- Backupmaster module 
+- Better documentation
+- Sooooooo much
