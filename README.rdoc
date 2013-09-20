@@ -5,7 +5,7 @@ This is the Host module for the backup2l solution. The final product is amaster/
 === Host
 Does local backups into the predefined user. Backup2l parameters are in params.pp
 
-== Backupmaster
+=== Backupmaster
 Still planing.
 
 == Requirements
@@ -13,8 +13,10 @@ Still planing.
 - "puppet module install puppetlab.stdlib"
 
 == Installation
+- Still on todo
 
 == Parameters
+
 [*volname*] 
     Prefix of output file. Default: "all"
 [*default_srclist*]
@@ -22,15 +24,18 @@ Still planing.
 [*srclist*]
     All additionals foldesr/sources that you want to have backed up. Default: ""
 
+
 == Usage/Configuration
 
-note "foo.example.com"{
-    class {'backup2l': 
-        parameter1  => "foobar",
+    note "foo.example.com"{
+        class {'backup2l': 
+            parameter1  => "foobar",
+        }
     }
-}
+
+
 == TODO
 
 - Backupmaster module 
 - Better documentation
-- Sooooooo much
+- Sooooooo much more
