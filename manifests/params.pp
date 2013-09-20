@@ -14,12 +14,11 @@ class backup2l::params {
 ###############################
 ## Useful defaults
     $puppet_source_path = "puppet:///modules/backup2l"
-    
-## Service
-    $service_name = 'backup2l'
+    $packages = ["backup2l", "rsync"]
 
 ###############################
 ## Other
-    $template_file = 'fancymodule/template.erb'
-    $config_file = '/etc/fancymodule'
+    $template_file = 'files/backup2l.conf.erb'
+    $config_file = '/etc/backup2l.conf'
+
 }

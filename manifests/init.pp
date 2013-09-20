@@ -19,7 +19,6 @@ class backup2l(
     anchor {"backup2l::begin":} ~>
     class {"backup2l::package": } ~>
     class {"backup2l::config":  } ~>
-    class {"backup2l::service": } ~>
     anchor {"backup2l::end": }
 
 }
