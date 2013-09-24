@@ -14,12 +14,12 @@ class backup2l::params {
 ###############################
 ## Useful defaults
     $puppet_source_path = "puppet:///modules/backup2l"
-    $packages = ["backup2l", "rsync"]
+    $packages           = ["backup2l", "rsync"]
 
 ###############################
 ## Other
-    $template_file = 'backup2l/backup2l.conf.erb'
-    $config_file = '/etc/backup2l.conf'
+    $template_file      = 'backup2l/backup2l.conf.erb'
+    $config_file        = '/etc/backup2l.conf'
 
 ###############################
 ## Backup User params
@@ -31,7 +31,7 @@ class backup2l::params {
     $volname            = "all"
     $default_srclist    = "/etc /root /home"
     $srclist            = ""
-    $default_skipcond    = "-path '*.nobackup*' -o -name '*.o'"
+    $default_skipcond   = "-path '*.nobackup*' -o -name '*.o'"
     $skipcond           = ""
     $backupdir          = "${userhome}/backups"
     $max_level          = "3"
