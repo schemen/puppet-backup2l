@@ -7,15 +7,29 @@ echo "Check if Backup folder is present..."
 if [ ! -e "/home/backup/backups" ]
 then
     echo "Backup folder not present..."
-    echo "creating backup folder..."
+    echo "creating Backup folder..."
     mkdir "/home/backup/backups"
     echo "Done."
 else
     echo "Backup folder is present!"
 fi
 #
+##Check if MySQL backup folder is present
+echo "Check if MySQL Backup folder is present..."
+if [ ! -e "/home/backup/mysql" ]
+then
+    echo "MySQL Backup folder not present..."
+    echo "creating MySQL Backup folder..."
+    mkdir "/home/backup/mysql"
+    echo "Done."
+else
+    echo "MySQL Backup folder is present!"
+fi
+
+#
 ##Create MySQL Dumps
-echo " dumping databases"
+echo""
+echo "Dumping the databases"
 for i in /var/lib/mysql/*/; do
     name=`basename $i`
     
@@ -24,7 +38,8 @@ for i in /var/lib/mysql/*/; do
     pass=$(grep pass /etc/mysql/debian.cnf | awk '{print $3}' | head -n 1)
     
     # do the dump
-    mysqldump --user="$user" --pass="$pass" $name | gzip > /var/backups/mysql/$name.gz
+    mysqldump --user="$user" --pass="$pass" $name | gzip > /home/backup/mysql/$name.gz
+    echo "Dumped $name"
     done
 #Insert Custom scripts here:
 #

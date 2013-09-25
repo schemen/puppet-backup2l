@@ -17,19 +17,25 @@ class backup2l::params {
     $packages           = ["backup2l", "rsync"]
 
 ###############################
-## Other
-    $template_file      = 'backup2l/backup2l.conf.erb'
-    $config_file        = '/etc/backup2l.conf'
-
-###############################
 ## Backup User params
     $username           = "backup"
     $userhome           = "/home/backup"
 
 ###############################
+## Other
+    $template_file      = 'backup2l/backup2l.conf.erb'
+    $config_file        = '/etc/backup2l.conf'
+
+    $temp_pre_back_file = 'backup2l/prebackup.sh.erb'
+    $pre_back_file      = '/usr/local/bin/prebackup'
+
+    $temp_post_back_file= 'backup2l/prebackup.sh.erb'
+    $post_back_file     = '/usr/local/bin/postbackup'
+
+###############################
 ## Backup2l params
     $volname            = "${::fqdn}"
-    $default_srclist    = "/etc /root /home"
+    $default_srclist    = "${userhome}/mysql /var/www /etc /root /home"
     $srclist            = ""
     $default_skipcond   = "-path '*.nobackup*' -o -name '*.o' -path '${userhome}/backups' -o -path '${userhome}/backups/*'"
     $skipcond           = ""
@@ -39,6 +45,6 @@ class backup2l::params {
     $max_full           = "2"
     $generations        = "1"
     $checkfile          = "1"
-    $pre_back           = ['echo sh ./prebackup']
+    $pre_back           = ['prebackup']
     $post_back          = ['echo sh ./postbackup']
 }
