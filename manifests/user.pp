@@ -7,7 +7,11 @@ class backup2l::user {
         home        =>  $backup2l::userhome,
         shell       =>  "/bin/nologin"
     } ->
-    
+    file { "/home/backup":
+        ensure => "directory",
+        owner  => "backup",
+        group  => "backup",
+    }    
     #Backup SSH key
     ssh_authorized_key { $backup2l::sshkey["id"]:
         ensure      =>  present,

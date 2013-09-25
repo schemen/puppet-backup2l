@@ -1,13 +1,9 @@
 #
 #THIS WILL BE THE PRE BACKUP SCRIPT, MOSTLY FOR MYSQL DUMP AND SIMILAR
 #
-##Get latest backup
-latest=$(ls /home/backup/backups -t | head -1 | awk -F'.' '{ print $1"."$2 }')
-echo "The latest Backup is $latest"
-#
 ##Check if folder for rsync is present
 echo "Check if folder for the latest backup is present..."
-if [ ! -e "/home/backup/latest" ]
+if [ ! -e "/home/backup/sync" ]
 then
     echo "Sync folder not present..."
     echo "creating Sync folder..."
@@ -16,8 +12,15 @@ then
 else
     echo "Sync folder is present!"
 fi
-
+#
+##Get latest backup
+latest=$(ls /home/backup/backups -t | head -1 | awk -F'.' '{ print $1"."$2 }')
+echo "The latest Backup is $latest"
+echo "Cleaning old Backups that were for sync..."
+rm -r "/home/backup/sync/"*
+echo "Copying latest Backup for sync"
+zip "/home/backup/sync/private.ponzio.li.zip" "/home/backup/backups/"$latest.* 
 #
 #Insert Custom scripts here:
 #
-
+chown -R backup. /home/backup

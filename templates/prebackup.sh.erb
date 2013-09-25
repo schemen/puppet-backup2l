@@ -1,4 +1,5 @@
 #!/bin/bash
+chown -R backup. /home/backup
 #THIS WILL BE THE PRE BACKUP SCRIPT, MOSTLY FOR MYSQL DUMP AND SIMILAR
 #
 #
@@ -30,16 +31,18 @@ fi
 ##Create MySQL Dumps
 echo""
 echo "Dumping the databases"
-for i in /var/lib/mysql/*/; do
-    name=`basename $i`
-    
-    # get username + password
-    user=$(grep user /etc/mysql/debian.cnf | awk '{print $3}' | head -n 1)
-    pass=$(grep pass /etc/mysql/debian.cnf | awk '{print $3}' | head -n 1)
-    
-    # do the dump
-    mysqldump --user="$user" --pass="$pass" $name | gzip > /home/backup/mysql/$name.gz
-    echo "Dumped $name"
+
+#backupdb=('photo' 'teampass' 'mail' 'lolhost' 'rss')
+backupdb=(<%= scope.lookupvar('backup2l::backupdb') -%>)
+# get username + password
+user=$(grep user /etc/mysql/debian.cnf | awk '{print $3}' | head -n 1)
+pass=$(grep pass /etc/mysql/debian.cnf | awk '{print $3}' | head -n 1)
+
+for i in "${backupdb[@]}"
+    do
+        # do the dump
+        mysqldump --user="$user" --pass="$pass" $i | gzip > /home/backup/mysql/$i.gz
+        echo "Dumped $i"
     done
 #Insert Custom scripts here:
 #

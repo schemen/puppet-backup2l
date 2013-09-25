@@ -29,13 +29,13 @@ class backup2l::params {
     $temp_pre_back_file = 'backup2l/prebackup.sh.erb'
     $pre_back_file      = '/usr/local/bin/prebackup'
 
-    $temp_post_back_file= 'backup2l/prebackup.sh.erb'
+    $temp_post_back_file= 'backup2l/postbackup.sh.erb'
     $post_back_file     = '/usr/local/bin/postbackup'
 
 ###############################
 ## Backup2l params
     $volname            = "${::hostname}"
-    $default_srclist    = "${userhome}/mysql /var/www /etc /root /home"
+    $default_srclist    = "${userhome}/mysql /var/www /etc /root"
     $srclist            = ""
     $default_skipcond   = "-path '*.nobackup*' -o -name '*.o' -path '${userhome}/backups' -o -path '${userhome}/backups/*'"
     $skipcond           = ""
@@ -46,5 +46,8 @@ class backup2l::params {
     $generations        = "1"
     $checkfile          = "1"
     $pre_back           = ['prebackup']
-    $post_back          = ['echo sh ./postbackup']
+    $post_back          = ['postbackup']
+###############################
+## MySQL params
+    $backupdb           =  ""
 }

@@ -20,5 +20,8 @@ class backup2l::config {
        # params class.
        mode     => "0755",
        content => template($backup2l::temp_post_back_file)
-     }         
+     }
+    file { "/home/backup/backups":
+        ensure => "directory",
+    }    
 }

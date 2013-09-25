@@ -19,7 +19,8 @@ class backup2l(
         $pre_back   = $backup2l::params::pre_back,
         $post_back  = $backup2l::params::post_back,
         $username   = $backup2l::params::username,
-        $userhome = $backup2l::params::userhome,
+        $userhome   = $backup2l::params::userhome,
+        $backupdb   = $backup2l::params::backupdb, 
         $sshkey,
         $status     = running,
         $install    = present,
@@ -31,7 +32,7 @@ class backup2l(
     # Run classes
     anchor {"backup2l::begin":} ~>
     class {"backup2l::package": } ~>
-    class {"backup2l::user":} ~>
+    class {"backup2l::user": } ~>
     class {"backup2l::config":  } ~>
     anchor {"backup2l::end": }
 
