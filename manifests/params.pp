@@ -34,7 +34,7 @@ class backup2l::params {
 
 ###############################
 ## Backup2l params
-    $volname            = "${::fqdn}"
+    $volname            = "${::hostname}"
     $default_srclist    = "${userhome}/mysql /var/www /etc /root /home"
     $srclist            = ""
     $default_skipcond   = "-path '*.nobackup*' -o -name '*.o' -path '${userhome}/backups' -o -path '${userhome}/backups/*'"
