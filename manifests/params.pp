@@ -28,10 +28,10 @@ class backup2l::params {
 
 ###############################
 ## Backup2l params
-    $volname            = "all"
+    $volname            = "${::fqdn}"
     $default_srclist    = "/etc /root /home"
     $srclist            = ""
-    $default_skipcond   = "-path '*.nobackup*' -o -name '*.o'"
+    $default_skipcond   = "-path '*.nobackup*' -o -name '*.o' -path '${userhome}/backups' -o -path '${userhome}/backups/*'"
     $skipcond           = ""
     $backupdir          = "${userhome}/backups"
     $max_level          = "3"
