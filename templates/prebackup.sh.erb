@@ -1,15 +1,15 @@
 #!/bin/bash
-chown -R backup. /home/backup
+chown -R backup. <%= scope.lookupvar('backup2l::userhome') -%>
 #THIS WILL BE THE PRE BACKUP SCRIPT, MOSTLY FOR MYSQL DUMP AND SIMILAR
 #
 #
 ##Check if Backup directory is available
 echo "Check if Backup folder is present..."
-if [ ! -e "/home/backup/backups" ]
+if [ ! -e "<%= scope.lookupvar('backup2l::userhome') -%>/backups" ]
 then
     echo "Backup folder not present..."
     echo "creating Backup folder..."
-    mkdir "/home/backup/backups"
+    mkdir "<%= scope.lookupvar('backup2l::userhome') -%>/backups"
     echo "Done."
 else
     echo "Backup folder is present!"
@@ -17,11 +17,11 @@ fi
 #
 ##Check if MySQL backup folder is present
 echo "Check if MySQL Backup folder is present..."
-if [ ! -e "/home/backup/mysql" ]
+if [ ! -e "<%= scope.lookupvar('backup2l::userhome') -%>/mysql" ]
 then
     echo "MySQL Backup folder not present..."
     echo "creating MySQL Backup folder..."
-    mkdir "/home/backup/mysql"
+    mkdir "<%= scope.lookupvar('backup2l::userhome') -%>/mysql"
     echo "Done."
 else
     echo "MySQL Backup folder is present!"
@@ -32,7 +32,6 @@ fi
 echo""
 echo "Dumping the databases"
 
-#backupdb=('photo' 'teampass' 'mail' 'lolhost' 'rss')
 backupdb=(<%= scope.lookupvar('backup2l::backupdb') -%>)
 # get username + password
 user=$(grep user /etc/mysql/debian.cnf | awk '{print $3}' | head -n 1)
@@ -41,6 +40,7 @@ pass=$(grep pass /etc/mysql/debian.cnf | awk '{print $3}' | head -n 1)
 for i in "${backupdb[@]}"
     do
         # do the dump
+        echo "Dumping $i..."
         mysqldump --user="$user" --pass="$pass" $i | gzip > /home/backup/mysql/$i.gz
         echo "Dumped $i"
     done

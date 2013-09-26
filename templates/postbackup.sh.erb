@@ -3,24 +3,26 @@
 #
 ##Check if folder for rsync is present
 echo "Check if folder for the latest backup is present..."
-if [ ! -e "/home/backup/sync" ]
+if [ ! -e "<%= scope.lookupvar('backup2l::userhome') -%>/sync" ]
 then
     echo "Sync folder not present..."
     echo "creating Sync folder..."
-    mkdir "/home/backup/sync"
+    mkdir "<%= scope.lookupvar('backup2l::userhome') -%>/sync"
     echo "Done."
 else
     echo "Sync folder is present!"
 fi
 #
 ##Get latest backup
-latest=$(ls /home/backup/backups -t | head -1 | awk -F'.' '{ print $1"."$2 }')
+latest=$(ls <%= scope.lookupvar('backup2l::userhome') -%>/backups -t | head -1 | awk -F'.' '{ print $1"."$2 }')
 echo "The latest Backup is $latest"
 echo "Cleaning old Backups that were for sync..."
-rm -r "/home/backup/sync/"*
+rm -r "<%= scope.lookupvar('backup2l::userhome') -%>/sync/"*
 echo "Copying latest Backup for sync"
-zip "/home/backup/sync/private.ponzio.li.zip" "/home/backup/backups/"$latest.* 
+BACKUPTIME=`date '+%Y-%m-%d_%H-%M-%S'`
+
+zip "<%= scope.lookupvar('backup2l::userhome') -%>/sync/$HOSTNAME.$BACKUPTIME.zip" "<%= scope.lookupvar('backup2l::userhome') -%>/backups/"$latest.* 
 #
 #Insert Custom scripts here:
 #
-chown -R backup. /home/backup
+chown -R backup. <%= scope.lookupvar('backup2l::userhome') -%>

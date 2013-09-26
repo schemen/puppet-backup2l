@@ -5,7 +5,7 @@ class backup2l::user {
         managehome  => true,
         name        =>  $backup2l::username,
         home        =>  $backup2l::userhome,
-        shell       =>  "/bin/nologin"
+        shell       =>  "/usr/bin/rssh"
     } ->
     file { "/home/backup":
         ensure => "directory",

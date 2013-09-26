@@ -14,7 +14,7 @@ class backup2l::params {
 ###############################
 ## Useful defaults
     $puppet_source_path = "puppet:///modules/backup2l"
-    $packages           = ["backup2l", "rsync"]
+    $packages           = ["backup2l", "rsync", "rssh"]
 
 ###############################
 ## Backup User params
