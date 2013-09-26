@@ -26,6 +26,9 @@ class backup2l::params {
     $template_file      = 'backup2l/backup2l.conf.erb'
     $config_file        = '/etc/backup2l.conf'
 
+    $rssh_template_file      = 'backup2l/rssh.conf.erb'
+    $rssh_config_file        = '/etc/rssh.conf'
+
     $temp_pre_back_file = 'backup2l/prebackup.sh.erb'
     $pre_back_file      = '/usr/local/bin/prebackup'
 
@@ -35,7 +38,7 @@ class backup2l::params {
 ###############################
 ## Backup2l params
     $volname            = "${::hostname}"
-    $default_srclist    = "${userhome}/mysql /var/www /etc /root"
+    $default_srclist    = "${userhome}/mysql /etc /root"
     $srclist            = ""
     $default_skipcond   = "-path '*.nobackup*' -o -name '*.o' -path '${userhome}/backups' -o -path '${userhome}/backups/*'"
     $skipcond           = ""
