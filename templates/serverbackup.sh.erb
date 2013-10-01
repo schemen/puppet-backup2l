@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+##Define Hosts that need their backup pulled
+backuphosts=""
+
+for i in $backuphosts 
+do
+    #
+    ## Check for backuplocation
+    echo "Check if Host has Backupfolder..."
+    if[ !-d  <%= scope.lookupvar('backup2l::userhome') -%>/$i ]
+    then
+        echo "Folder for $i does not exist!"
+        echo "Creating folder..."
+        mkdir <%= scope.lookupvar('backup2l::userhome') -%>/$i 
+    fi
+    #
+    ## Pull the Backup from Server
+    echo "Pulling backup from $i..."
+    rsync -avz -e "ssh -i <%= scope.lookupvar('backup2l::userhome') -%>/.ssh/backup"  <%= scope.lookupvar('backup2l::username') -%>@$i:<%= scope.lookupvar('backup2l::userhome') -%>/sync/*  <%= scope.lookupvar('backup2l::userhome') -%>/$i/
+    echo "Backup for $i done"
+    echo""
+
+chown -R <%= scope.lookupvar('backup2l::username') -%>. <%= scope.lookupvar('backup2l::userhome') -%>
