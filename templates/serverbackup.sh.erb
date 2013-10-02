@@ -2,7 +2,13 @@
 #
 ##Define Hosts that need their backup pulled
 backuphosts=""
-
+#
+## Other Vars
+starttime=`date '+%Y-%m-%d_%H-%M-%S'`
+#
+##Start of Script
+echo "Initiating Backup gathering process"
+echo "Current Time: $starttime"
 for i in $backuphosts 
 do
     #
@@ -20,5 +26,7 @@ do
     rsync -avz -e "ssh -i <%= scope.lookupvar('backup2l::userhome') -%>/.ssh/backup"  <%= scope.lookupvar('backup2l::username') -%>@$i:<%= scope.lookupvar('backup2l::userhome') -%>/sync/*  <%= scope.lookupvar('backup2l::userhome') -%>/$i/
     echo "Backup for $i done"
     echo""
-
+done
 chown -R <%= scope.lookupvar('backup2l::username') -%>. <%= scope.lookupvar('backup2l::userhome') -%>
+endtime=`date '+%Y-%m-%d_%H-%M-%S'`
+echo "Finished backup gathering process at $endtime"
