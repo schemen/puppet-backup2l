@@ -1,32 +1,43 @@
 #!/bin/bash
 #
 ##Define Hosts that need their backup pulled
-backuphosts=""
+backuphosts="<%= scope.lookupvar('backup2l::backuphosts') -%>"
 #
 ## Other Vars
 starttime=`date '+%Y-%m-%d_%H-%M-%S'`
 #
 ##Start of Script
-echo "Initiating Backup gathering process"
-echo "Current Time: $starttime"
+echo ""
+echo "########################################################"
+echo "####### Backupmaster $(hostname -f) - Starting Backup procedure"
+echo "####### Current Time: $starttime"
+echo "####### Script by: elijah@ponzio.li"
+echo ""
 for i in $backuphosts 
 do
     #
     ## Check for backuplocation
+    echo ""
+    echo ""
+    echo "########################################################"
+    echo "####### Starting Backup process for $i"
     echo "Check if Host has Backupfolder..."
-    if[ !-d  <%= scope.lookupvar('backup2l::userhome') -%>/$i ]
+    if [ ! -d  <%= scope.lookupvar('backup2l::userhome') -%>/$i ];
     then
         echo "Folder for $i does not exist!"
         echo "Creating folder..."
         mkdir <%= scope.lookupvar('backup2l::userhome') -%>/$i 
+    else
+        echo "Folder $i exists!"
     fi
     #
     ## Pull the Backup from Server
     echo "Pulling backup from $i..."
-    rsync -avz -e "ssh -i <%= scope.lookupvar('backup2l::userhome') -%>/.ssh/backup"  <%= scope.lookupvar('backup2l::username') -%>@$i:<%= scope.lookupvar('backup2l::userhome') -%>/sync/*  <%= scope.lookupvar('backup2l::userhome') -%>/$i/
+    rsync -avz -e "ssh -i <%= scope.lookupvar('backup2l::userhome') -%>/.ssh/<%= scope.lookupvar('backup2l::masterkey') -%>"  <%= scope.lookupvar('backup2l::username') -%>@$i:<%= scope.lookupvar('backup2l::userhome') -%>/sync/*  <%= scope.lookupvar('backup2l::userhome') -%>/$i/
     echo "Backup for $i done"
     echo""
 done
-chown -R <%= scope.lookupvar('backup2l::username') -%>. <%= scope.lookupvar('backup2l::userhome') -%>
 endtime=`date '+%Y-%m-%d_%H-%M-%S'`
+echo""
+chown -R <%= scope.lookupvar('backup2l::username') -%>. "<%= scope.lookupvar('backup2l::userhome') -%>/"
 echo "Finished backup gathering process at $endtime"

@@ -35,6 +35,8 @@ class backup2l::params {
     $temp_post_back_file= 'backup2l/postbackup.sh.erb'
     $post_back_file     = '/usr/local/bin/postbackup'
 
+    $temp_master_pull_file   = 'backup2l/serverbackup.sh.erb'
+    $master_pull_file        = '/usr/local/bin/serverbackup'
 ###############################
 ## Backup2l params
     $volname            = "${::hostname}"
@@ -52,5 +54,10 @@ class backup2l::params {
     $post_back          = ['postbackup']
 ###############################
 ## MySQL params
-    $backupdb           =  ""
+    $backupdb           = ""
+###############################
+## Backup Master Config
+    $ismaster           = "false"
+    $masterkey          = ""
+    $backuphosts        = ""
 }

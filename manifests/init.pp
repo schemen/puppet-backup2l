@@ -21,6 +21,9 @@ class backup2l(
         $username   = $backup2l::params::username,
         $userhome   = $backup2l::params::userhome,
         $backupdb   = $backup2l::params::backupdb, 
+        $backuphosts= $backup2l::params::backuphosts,
+        $masterkey  = $backup2l::params::masterkey,
+        $ismaster   = $backup2l::params::ismaster,
         $sshkey,
         $status     = running,
         $install    = present,
@@ -28,13 +31,18 @@ class backup2l(
 
     # Setup parameters
 
-    notify {"Userhome = ${userhome}": } 
     # Run classes
-    anchor {"backup2l::begin":} ~>
-    class {"backup2l::package": } ~>
-    class {"backup2l::user": } ~>
-    class {"backup2l::config":  } ~>
-    anchor {"backup2l::end": }
-
+    if $ismaster == 'true'{
+        anchor {"backup2l::begin":} ~>
+        class {"backup2l::master": } ~>
+        anchor {"backup2l::end": }
+    }
+    else {
+        anchor {"backup2l::begin":} ~>
+        class {"backup2l::package": } ~>
+        class {"backup2l::user": } ~>
+        class {"backup2l::config":  } ~>
+        anchor {"backup2l::end": }
+    }
 }
 

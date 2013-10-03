@@ -43,6 +43,4 @@ Please define the SSH Key outside of this module like in the Configuration examp
 
 == TODO
 
-- Backupmaster module 
-- Better documentation
-- Sooooooo much more
+- Documentation
